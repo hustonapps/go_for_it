@@ -7,10 +7,19 @@ import (
 	"strings"
 
 	"hustonapps.com/go_for_it/note"
+	"hustonapps.com/go_for_it/todo"
 )
 
 func main() {
 	title, content := getNoteData();
+	todoText := getUserInput("Todo text: ")
+
+	todo, err := todo.New(todoText)
+
+	if err != nil {
+		fmt.Println("Error creating todo: ", err)
+		return
+	}
 
 	userNote, err := note.New(title, content)
 
@@ -19,7 +28,17 @@ func main() {
 		return
 	}
 
-	userNote.ShowNote()
+	todo.Display()
+	err = todo.Save()
+
+	if err != nil {
+		fmt.Println("Saving the todo failed", err)
+		return
+	}
+
+	fmt.Println("Todo saved successfully!")
+
+	userNote.Display()
 	err = userNote.Save()
 
 	if err != nil {

@@ -27,7 +27,7 @@ func New(title, content string) (Note, error) {
 	}, nil
 }
 
-func (n Note) ShowNote() {
+func (n Note) Display() {
 	fmt.Printf("\nYour note titled\n\n%v\n\nhas the following content:\n\n%v\n\n", n.Title, n.Content)
 }
 
