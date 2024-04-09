@@ -44,6 +44,14 @@ func main() {
 	}
 
 	outputData(userNote)
+	printSomething(1234);
+	printSomething(12.34);
+	printSomething(true);
+	printSomething("Hello, World!");
+}
+
+func printSomething(value interface{}) {
+	fmt.Println(value)
 }
 
 func outputData (data outputtable) error {
