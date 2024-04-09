@@ -10,6 +10,10 @@ import (
 	"hustonapps.com/go_for_it/todo"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getNoteData();
 	todoText := getUserInput("Todo text: ")
@@ -29,24 +33,30 @@ func main() {
 	}
 
 	todo.Display()
-	err = todo.Save()
+	err = saveData(todo)
 
 	if err != nil {
-		fmt.Println("Saving the todo failed", err)
 		return
 	}
 
-	fmt.Println("Todo saved successfully!")
-
 	userNote.Display()
-	err = userNote.Save()
+	err = saveData(userNote)
+
+	if err != nil {
+		return
+	}
+}
+
+func saveData(data saver) error {
+	err := data.Save()
 
 	if err != nil {
 		fmt.Println("Saving the note failed", err)
-		return
+		return err
 	}
 
 	fmt.Println("Note saved successfully!")
+	return nil
 }
 
 func getNoteData() (string, string) {
