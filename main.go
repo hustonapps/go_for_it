@@ -51,17 +51,20 @@ func main() {
 }
 
 func printSomething(value interface{}) {
-	switch value.(type) {
-	case int:
-		fmt.Println("This is an integer:", value)
-	case float64:
-		fmt.Println("This is a float: ", value)
-	case bool:
-		fmt.Println("This is a boolean: ", value)
-	case string:
-		fmt.Println("This is a string: ", value)
-	default:
-		fmt.Println("Unknown type")
+	typedVal, ok := value.(int)
+
+	if (ok) {
+		typedVal += 1
+		fmt.Println("This is an integer: ", typedVal)
+	} else {
+		switch value.(type) {
+		case string:
+			fmt.Println("This is an string:", value)
+		case float64:
+			fmt.Println("This is a float: ", value)
+		case bool:
+			fmt.Println("This is a boolean: ", value)
+		}
 	}
 }
 
